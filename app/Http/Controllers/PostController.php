@@ -12,7 +12,7 @@ class PostController extends Controller
             $post->delete();
         }
 
-        return redirect('/');
+        return redirect('/ordering');
     }
 
     public Function showEditScreen(Post $post) {
@@ -21,7 +21,7 @@ class PostController extends Controller
     
     public function UpdatePost (Post $post, Request $request) {
         if (auth() -> user() -> id !== $post["user_id"]) {
-            return redirect('/');
+            return redirect('/ordering');
         }
 
         $incomingFields = $request->validate([
@@ -34,7 +34,7 @@ class PostController extends Controller
         }
 
         $post->update($incomingFields);
-        return redirect("/");
+        return redirect("/ordering");
     }
     public Function create_post(Request $request) {
         $incomingFields = $request->validate([
@@ -48,6 +48,6 @@ class PostController extends Controller
         };
         $incomingFields["user_id"] = auth()->id();
         Post::create($incomingFields);
-        return redirect("/");
+        return redirect("/ordering");
     }
 }
